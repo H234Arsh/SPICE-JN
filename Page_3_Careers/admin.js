@@ -98,9 +98,9 @@ async function fetchApplications() {
     }
 
     // Build table rows
-    snapshot.forEach((doc, index) => {
-      const d   = doc.data();
-      const row = document.createElement('tr');
+    let index = 0;
+    snapshot.forEach((doc) => {
+    index++;
 
       // Format timestamp
       let submittedAt = '—';
@@ -113,7 +113,7 @@ async function fetchApplications() {
       }
 
       row.innerHTML = `
-        <td>${index + 1}</td>
+        <td>${index}</td>
         <td>${d.fullName   || '—'}</td>
         <td>${d.email      || '—'}</td>
         <td>${d.phone      || '—'}</td>
