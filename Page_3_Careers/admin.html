@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Spice Junction</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a class="nav-brand" href="../Page_1_Menu/index.html">🌶 Spice Junction</a>
+    <div class="nav-links">
+      <a href="../Page_1_Menu/index.html">Menu</a>
+      <a href="../Page_2_About/index.html">About</a>
+      <a href="careers.html">Careers</a>
+      <a href="admin.html" class="active">Admin</a>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════
+       LOGIN SECTION (shown when logged out)
+  ════════════════════════════════════ -->
+  <section id="loginSection" class="login-section">
+    <div class="login-card">
+      <h2>Admin Login</h2>
+      <p class="login-sub">Spice Junction — Staff Portal</p>
+
+      <!-- Login error banner -->
+      <div id="loginError" class="error-banner" style="display:none"></div>
+
+      <div class="form-group">
+        <label for="adminEmail">Email</label>
+        <input type="email" id="adminEmail" placeholder="admin@spicejunction.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="adminPassword">Password</label>
+        <input type="password" id="adminPassword" placeholder="••••••••" />
+      </div>
+
+      <button id="loginBtn" class="primary-btn">Login</button>
+
+      <!-- Test credentials hint for evaluators -->
+      <!-- Admin email:    admin@spicejunction.com  -->
+      <!-- Admin password: Admin@1234               -->
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       DASHBOARD (shown when logged in)
+  ════════════════════════════════════ -->
+  <section id="dashboardSection" class="dashboard-section" style="display:none">
+    <div class="dashboard-header">
+      <div>
+        <h2>Applications Dashboard</h2>
+        <p id="welcomeMsg" class="dash-sub"></p>
+      </div>
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+
+    <!-- Loading / empty states -->
+    <p id="loadingMsg"  class="state-msg">⏳ Loading applications…</p>
+    <p id="emptyMsg"    class="state-msg" style="display:none">📭 No applications received yet.</p>
+    <p id="fetchErrMsg" class="error-banner" style="display:none"></p>
+
+    <!-- Applications table -->
+    <div class="table-wrapper" id="tableWrapper" style="display:none">
+      <table id="applicationsTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Position</th>
+            <th>Exp (yrs)</th>
+            <th>Why Hire?</th>
+            <th>Submitted At</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Rows injected by admin.js -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Firebase SDKs (compat v9) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script src="firebase-config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

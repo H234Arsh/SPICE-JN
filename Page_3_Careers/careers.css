@@ -1,0 +1,208 @@
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --spice:    #c0392b;
+  --spice-dk: #922b21;
+  --gold:     #d4ac0d;
+  --bg:       #fdf6ec;
+  --surface:  #ffffff;
+  --text:     #2c1810;
+  --muted:    #7d6558;
+  --border:   #e8d5c4;
+  --radius:   10px;
+  --err:      #c0392b;
+  --err-bg:   #fdecea;
+  --ok:       #1e8449;
+  --ok-bg:    #eafbee;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 58px;
+  background: var(--spice);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 24px; }
+
+.nav-links a {
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 2px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #7b1a12, #c0392b, #e67e22);
+  color: #fff;
+  padding: 70px 32px 56px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+}
+
+.hero p {
+  margin-top: 10px;
+  font-size: 1.05rem;
+  opacity: .88;
+}
+
+/* ── FORM SECTION ── */
+.form-section { padding: 56px 32px; }
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Global banners */
+.success-banner {
+  background: var(--ok-bg);
+  color: var(--ok);
+  border: 1px solid #a9dfbf;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.error-banner {
+  background: var(--err-bg);
+  color: var(--err);
+  border: 1px solid #f5c6cb;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+/* Form groups */
+.form-group { margin-bottom: 22px; }
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  font-size: .93rem;
+  margin-bottom: 6px;
+}
+
+.req { color: var(--spice); }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .93rem;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color .2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--spice);
+}
+
+/* Inline error messages */
+.field-error {
+  display: block;
+  color: var(--err);
+  font-size: .8rem;
+  margin-top: 4px;
+  min-height: 18px;
+}
+
+/* Input in error state */
+.input-error {
+  border-color: var(--err) !important;
+  background: var(--err-bg) !important;
+}
+
+/* Submit button */
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  background: var(--spice);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s, opacity .2s;
+  margin-top: 8px;
+}
+
+.submit-btn:hover   { background: var(--spice-dk); }
+.submit-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--text);
+  color: rgba(255,255,255,.7);
+  padding: 28px 32px;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  max-width: 1050px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footer-brand { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.1rem; }
+
+.footer-social { display: flex; gap: 16px; }
+.footer-social a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .85rem; }
+.footer-social a:hover { color: #fff; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .navbar { padding: 0 16px; }
+  .form-section { padding: 32px 16px; }
+  .nav-links { gap: 12px; }
+}

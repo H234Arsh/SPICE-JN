@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers — Spice Junction</title>
+  <link rel="stylesheet" href="careers.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a class="nav-brand" href="../Page_1_Menu/index.html">🌶 Spice Junction</a>
+    <div class="nav-links">
+      <a href="../Page_1_Menu/index.html">Menu</a>
+      <a href="../Page_2_About/index.html">About</a>
+      <a href="careers.html" class="active">Careers</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero">
+    <h1>Join Our Team</h1>
+    <p>We are always looking for passionate people to be part of the Spice Junction family.</p>
+  </header>
+
+  <!-- ── FORM SECTION ── -->
+  <main class="form-section">
+    <div class="container">
+
+      <!-- Global messages -->
+      <div id="successMsg" class="success-banner" style="display:none">
+        ✅ Application submitted successfully! We will be in touch soon.
+      </div>
+      <div id="errorMsg" class="error-banner" style="display:none"></div>
+
+      <form id="applicationForm" novalidate>
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" placeholder="e.g. Harsha Kumar" />
+          <span class="field-error" id="fullNameError"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="you@example.com" />
+          <span class="field-error" id="emailError"></span>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="10-digit number" />
+          <span class="field-error" id="phoneError"></span>
+        </div>
+
+        <!-- Position -->
+        <div class="form-group">
+          <label for="position">Position Applied For <span class="req">*</span></label>
+          <select id="position">
+            <option value="">-- Select a position --</option>
+            <option value="Chef">Chef</option>
+            <option value="Waiter">Waiter</option>
+            <option value="Manager">Manager</option>
+            <option value="Delivery">Delivery</option>
+            <option value="Cashier">Cashier</option>
+          </select>
+          <span class="field-error" id="positionError"></span>
+        </div>
+
+        <!-- Experience -->
+        <div class="form-group">
+          <label for="experience">Experience (years) <span class="req">*</span></label>
+          <input type="number" id="experience" min="0" max="50" placeholder="e.g. 3" />
+          <span class="field-error" id="experienceError"></span>
+        </div>
+
+        <!-- Why hire -->
+        <div class="form-group">
+          <label for="whyHire">Why should we hire you? <span class="req">*</span></label>
+          <textarea id="whyHire" rows="5" placeholder="Minimum 20 characters..."></textarea>
+          <span class="field-error" id="whyHireError"></span>
+        </div>
+
+        <button type="submit" id="submitBtn" class="submit-btn">Submit Application</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">🌶 Spice Junction</p>
+      <p>&copy; 2026 Spice Junction. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs (compat v9) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Shared config (initialises firebase, exposes db & auth) -->
+  <script src="firebase-config.js"></script>
+  <script src="careers.js"></script>
+</body>
+</html>
