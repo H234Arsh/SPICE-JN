@@ -15,24 +15,22 @@ const tableBody        = document.getElementById('tableBody');
 
 // ── SHOW / HIDE SECTIONS ──────────────────────────────────
 function showDashboard(user) {
-  loginSection.style.display    = 'none';
+  loginSection.style.display     = 'none';
   dashboardSection.style.display = 'block';
-  welcomeMsg.textContent        = `Logged in as: ${user.email}`;
+  welcomeMsg.textContent         = 'Logged in as: ' + user.email;
   fetchApplications();
 }
 
 function showLogin() {
   dashboardSection.style.display = 'none';
   loginSection.style.display     = 'flex';
-  // Reset login form fields
   document.getElementById('adminEmail').value    = '';
   document.getElementById('adminPassword').value = '';
   loginError.style.display = 'none';
 }
 
 // ── AUTH STATE OBSERVER ───────────────────────────────────
-// Persists session across page refresh
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(function(user) {
   if (user) {
     showDashboard(user);
   } else {
@@ -41,27 +39,25 @@ auth.onAuthStateChanged(user => {
 });
 
 // ── LOGIN HANDLER ─────────────────────────────────────────
-loginBtn.addEventListener('click', async () => {
-  const email    = document.getElementById('adminEmail').value.trim();
-  const password = document.getElementById('adminPassword').value;
+loginBtn.addEventListener('click', async function() {
+  var email    = document.getElementById('adminEmail').value.trim();
+  var password = document.getElementById('adminPassword').value;
 
   loginError.style.display = 'none';
 
   if (!email || !password) {
-    loginError.textContent  = 'Please enter both email and password.';
+    loginError.textContent   = 'Please enter both email and password.';
     loginError.style.display = 'block';
     return;
   }
 
   loginBtn.disabled    = true;
-  loginBtn.textContent = 'Logging in…';
+  loginBtn.textContent = 'Logging in...';
 
   try {
     await auth.signInWithEmailAndPassword(email, password);
-    // onAuthStateChanged fires automatically and calls showDashboard()
   } catch (err) {
-    // Show DOM-based error — no alert()
-    loginError.textContent  = 'Invalid email or password. Please try again.';
+    loginError.textContent   = 'Invalid email or password. Please try again.';
     loginError.style.display = 'block';
   } finally {
     loginBtn.disabled    = false;
@@ -70,23 +66,20 @@ loginBtn.addEventListener('click', async () => {
 });
 
 // ── LOGOUT HANDLER ────────────────────────────────────────
-logoutBtn.addEventListener('click', async () => {
+logoutBtn.addEventListener('click', async function() {
   await auth.signOut();
-  // onAuthStateChanged fires and calls showLogin()
 });
 
 // ── FETCH APPLICATIONS ────────────────────────────────────
 async function fetchApplications() {
-  // Reset state
-  loadingMsg.style.display  = 'block';
-  emptyMsg.style.display    = 'none';
-  fetchErrMsg.style.display = 'none';
+  loadingMsg.style.display   = 'block';
+  emptyMsg.style.display     = 'none';
+  fetchErrMsg.style.display  = 'none';
   tableWrapper.style.display = 'none';
-  tableBody.innerHTML       = '';
+  tableBody.innerHTML        = '';
 
   try {
-    // Sort by newest first (submittedAt descending)
-    const snapshot = await db.collection('applications')
+    var snapshot = await db.collection('applications')
       .orderBy('submittedAt', 'desc')
       .get();
 
@@ -97,40 +90,42 @@ async function fetchApplications() {
       return;
     }
 
-    // Build table rows
-    let serialNo = 1;
-    snapshot.forEach((doc) => {
-      const d   = doc.data();
-      const row = document.createElement('tr');
+    // Use a plain counter for serial number
+    var counter = 1;
+
+    snapshot.forEach(function(doc) {
+      var d   = doc.data();
+      var row = document.createElement('tr');
 
       // Format timestamp
-      let submittedAt = '—';
+      var submittedAt = '—';
       if (d.submittedAt && d.submittedAt.toDate) {
-        const date = d.submittedAt.toDate();
+        var date = d.submittedAt.toDate();
         submittedAt = date.toLocaleString('en-IN', {
           day: '2-digit', month: 'short', year: 'numeric',
           hour: '2-digit', minute: '2-digit'
         });
       }
 
-      row.innerHTML = `
-        <td>${serialNo++}</td>
-        <td>${d.fullName   || '—'}</td>
-        <td>${d.email      || '—'}</td>
-        <td>${d.phone      || '—'}</td>
-        <td>${d.position   || '—'}</td>
-        <td>${d.experience !== undefined ? d.experience : '—'}</td>
-        <td class="reason-cell">${d.whyHire || '—'}</td>
-        <td style="white-space:nowrap">${submittedAt}</td>
-      `;
+      row.innerHTML =
+        '<td>' + counter + '</td>' +
+        '<td>' + (d.fullName   || '—') + '</td>' +
+        '<td>' + (d.email      || '—') + '</td>' +
+        '<td>' + (d.phone      || '—') + '</td>' +
+        '<td>' + (d.position   || '—') + '</td>' +
+        '<td>' + (d.experience !== undefined ? d.experience : '—') + '</td>' +
+        '<td class="reason-cell">' + (d.whyHire || '—') + '</td>' +
+        '<td style="white-space:nowrap">' + submittedAt + '</td>';
+
       tableBody.appendChild(row);
+      counter = counter + 1;
     });
 
     tableWrapper.style.display = 'block';
 
   } catch (err) {
-    loadingMsg.style.display   = 'none';
-    fetchErrMsg.textContent    = 'Error loading applications: ' + err.message;
-    fetchErrMsg.style.display  = 'block';
+    loadingMsg.style.display  = 'none';
+    fetchErrMsg.textContent   = 'Error loading applications: ' + err.message;
+    fetchErrMsg.style.display = 'block';
   }
 }
